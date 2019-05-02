@@ -30,7 +30,7 @@ var pageCommandeRouter = require('./app_server/routes/pageCommande');
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, './app_server/views'));
 app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
