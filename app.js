@@ -26,7 +26,7 @@ var pageAceuilRouter = require('./app_server/routes/pageAceuil');
 var usersRouter = require('./app_server/routes/users');
 var pageRecetteRouter = require('./app_server/routes/pageRecette');
 var pageCommandeRouter = require('./app_server/routes/pageCommande');
-
+var recetteHachis=require('./app_server/routes/recetteHachis');
 var app = express();
 
 // view engine setup
@@ -44,6 +44,7 @@ app.use('/', pageAceuilRouter);
 app.use('/users', usersRouter);
 app.use('/pageRecette', pageRecetteRouter);
 app.use('/pageCommande', pageCommandeRouter);
+app.use('/recetteHachis', recetteHachis);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
