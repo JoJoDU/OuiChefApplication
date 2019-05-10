@@ -1,0 +1,55 @@
+<%- include header %>
+<div class="row navbar">
+<h1>
+  On vous livre où?
+</h1>
+</div>
+<hr>
+<div class="row">
+  <form role="form" method="POST" action="map">
+  <div class="form-group" id="locationField">
+  <div class="col-sm">
+      <input id="autocomplete"
+      name="autoCompleteAdress"
+      class="form-control"
+      placeholder="Rechercher votre adresse"
+      onFocus="geolocate()"
+      type="text"/>
+  </div>
+  <br>
+    <table id="address" class="table">
+      <tbody>
+      <tr>
+        <td class="label label-default">Adresse de rue</td>
+        <td class="slimField"><input class="form-control" id="street_number" name="street_number" disabled="true"/></td>
+        <td class="wideField" colspan="2"><input class="form-control" id="route" disabled="true"/></td>
+      </tr>
+      <tr>
+        <td class="label label-default">Ville</td>
+        <td class="wideField" colspan="3"><input class="form-control" id="locality" name="city" disabled="true"/></td>
+      </tr>
+      <tr>
+        <td class="label label-default">Etat</td>
+        <td class="slimField"><input class="form-control" id="administrative_area_level_1" name="state" disabled="true"/></td>
+        <td class="label">Code postal</td>
+        <td class="wideField"><input class="form-control" id="postal_code" name="zipCode" disabled="true"/></td>
+      </tr>
+      <tr>
+        <td class="label label-default">Pays</td>
+        <td class="wideField" colspan="3"><input class="form-control" id="country" name="country" disabled="true"/></td>
+      </tr>
+    </tbody>
+    </table>
+    <div class="col-sm-4">
+      <input id="telephone"
+      class="form-control"
+      name="tel"
+      required="required"
+      placeholder="Téléphone*"
+      type="tel"/>
+  </div>
+</div>
+<input class="btn btn-primary btn-lg" type="submit" value="Suivant">
+</form>
+</div>
+<%- include footer %>
