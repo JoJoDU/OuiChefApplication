@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('pageAceuil', { title: 'Recette dans Oui Chef' });
+  res.render('users', { title: 'Recette dans Oui Chef' });
 });
 
 module.exports = router;
