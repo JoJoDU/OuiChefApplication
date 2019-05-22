@@ -15,8 +15,8 @@ var userpool_id = 'us-east-2_t0sh60GU2';
 var app_client_id = '16g26706ovmhfj4d3o08qnnso';
 var keys_url = 'https://cognito-idp.' + region + '.amazonaws.com/' + userpool_id + '/.well-known/jwks.json';
 
-exports.handler = (event, context, callback) => {
-    var token = event.token;
+module.exports = (event, context, callback) => {
+    var token = event;
     var sections = token.split('.');
     // get the kid from the headers prior to verification
     var header = jose.util.base64url.decode(sections[0]);
@@ -27,6 +27,7 @@ exports.handler = (event, context, callback) => {
         if (response.statusCode == 200) {
             response.on('data', function(body) {
                 var keys = JSON.parse(body)['keys'];
+                console.log('keys: '+keys);
                 // search for the kid in the downloaded public keys
                 var key_index = -1;
                 for (var i=0; i < keys.length; i++) {
@@ -48,6 +49,9 @@ exports.handler = (event, context, callback) => {
                     then(function(result) {
                         // now we can use the claims
                         var claims = JSON.parse(result.payload);
+                        console.log('payload: '+JSON.stringify(claims));
+                        console.log(claims.email);
+                        
                         // additionally we can verify the token expiration
                         var current_ts = Math.floor(new Date() / 1000);
                         if (current_ts > claims.exp) {
@@ -60,7 +64,7 @@ exports.handler = (event, context, callback) => {
                         callback(null, claims);
                     }).
                     catch(function() {
-                        callback('Signature verification failed');
+                       // callback('Signature verification failed');
                     });
                 });
             });
