@@ -2,16 +2,35 @@
 <div id="app">
     <h1>{{title}}</h1>
 </div>
-<div>
-    <div class="card" style="width: 18rem;">
-        <img src="/image/Hachis.jpeg" class="card-img-top" >
-        <div class="card-body">
-            <h5 class="card-title">
-                Hachis parmentier chilien (pastel de choclo)</h5>
-            <p class="card-text">Plat </p>
-            <a href="/recetteHachis" class="btn btn-primary">Les détails</a>
+<div id="recette" style="margin-top: 50px;">
+    <div class="card-deck">
+        <div v-for="item in recette" >
+
+                <div class="card" style="width: 20rem;height:100%;">
+                    <img v-bind:src="'/image/'+item.id+'.jpeg'" class="card-img-top" height="200px">
+                    <div class="card-body" >
+                        <h5 class="card-title">
+                            {{item.title}}</h5>
+                        <p class="card-text" style="margin-bottom: 40px">{{item.text}}</p>
+                            <a  :href="'/recetteDetail?id='+item.id" class="btn btn-primary" style="position: absolute;bottom:10px">Les détails</a>
+                    </div>
+                </div>
+
         </div>
     </div>
 </div>
-<div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">分享</a></div
-<%- include footer %>
+<div>
+    <div style="text-align: center;margin-top: 50px">
+       <a  href="/createRecette"><button type="button" class="btn btn-success">Créez vos propres recettes</button></a>
+    </div>
+</div>
+
+
+</div>
+
+<script src="/javascripts/pageRecette.js"></script>
+
+<script src="/javascripts/jquery.min.js"></script>
+<script src="/javascripts/bootstrap.min.js"></script>
+</body>
+</html>
