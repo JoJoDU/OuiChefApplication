@@ -1,0 +1,63 @@
+<%- include header %>
+    <h1><%= title %></h1>
+    <hr>
+    <div class="row">
+      
+        <div class="col-md-6">
+          <h2 class=" text-center">Total à payer</h2>
+          <div class=" text-center"><strong><%= paymentIntent.amount/100 %> euros</strong></div>
+          <hr>
+          <form action="paiement" method="POST">
+            <div class="form-group">
+              <label for="formGroupExampleInput">Titulaire de la carte</label>
+              <br>
+              <input type="text" name="cardHolder" required="required" id="cardholder-name" type="text">
+            </div>
+            <br>
+            <br>
+          <div id="card-element"></div>
+          <input  name="paymentId" type="hidden" value=<%= paymentIntent.id %> />
+          <input  name="adress" type="hidden" value=<%= adresse %> />
+          <br>
+          <br>
+          <button id="card-button" class="btn btn-primary" type="submit" data-secret=<%= paymentIntent.client_secret %>>
+            Submit Payment
+          </button>
+        </form>
+        </div>
+
+        <div class="col-md-6">
+            <div class="p-3 mb-2 bg-light text-dar">
+            <div class="col-xs-6 text-center">
+              <strong>RECAPITULATIF DE COMMANDE</strong>
+            </div><br>
+            </div>
+            <div class="p-3 mb-2 bg-light text-dar">
+            <div class="col-xs-6  text-center" id="total">
+              <strong>TOTAL DE VOS ARTICLE</strong> 
+            </div><br>
+            </div>
+            <div class="p-3 mb-2 bg-light text-dar">
+            <% if(adresse==''){ %>
+            <p>Votre adresse est in valide,veuillez retourner à la page précidente.</p>
+            <% }
+            else %>
+            <div class="p-3 mb-2 bg-light text-dar">
+            <div class="col-xs-12 text-center">
+              <strong> ADRESSE DE FACTURATION</strong></div>
+            <div class="text-center">
+            <label><%- adresse %></label>
+            </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    
+  </div>
+  <script src="/javascripts/jquery.min.js"></script>
+  <script src="/javascripts/bootstrap.min.js"></script>
+  <script src="https://checkout.stripe.com/checkout.js"></script>
+  <script src="https://js.stripe.com/v3/"></script>
+  <script src="/javascripts/paiement.js"></script>
+  </body>
+  </html>

@@ -1,10 +1,43 @@
 <%- include header %>
+<br>
 <h1>Votre commande</h1>
-<table>
+<% if(products){ %>
+  <form action="map" method="GET">
+    <table class="table col-md-8" id="tab">
+    <%for(var item in products){
+        %>
     <tr>
-        <td>
-            photo
-        </td>
-    </tr>
+    <td>
+                <h3><%= products[item].title %></h3>
+                <div>
+                <span class="price"><%= products[item].price %></span>
+                </div>
+                <div class="float-right">
+                <input class="min btn" name="" type="button" value="-" />
+                <input class="text_box" name="" type="number" value="1" placeholder="1"/>
+                <input class="add btn" name="" type="button" value="+" />
+                <a class="delete btn btn-primary float-right" role="button">Supprimer</a>
+                </div>
+</td>
+</tr>
+<%} %>
 </table>
-<%- include footer %>
+<h2>Total : <strong id="total"></strong></h2>
+<div class="row center">
+    <button class="valide btn btn-primary col-md-1 offset-md-3" id="valide" type="submit">Valider</button>
+</div>
+</form>
+
+<% } 
+ else{ %>
+    <p>Votre panier est vide!</p>
+    <a href="/pageAceuil" type="link">Retour à l'acceuil</a>
+<% } %>
+
+
+</div>
+<script src="/javascripts/jquery.min.js"></script>
+<script src="/javascripts/bootstrap.min.js"></script>
+<script src="/javascripts/commande.js"></script>
+</body>
+</html>

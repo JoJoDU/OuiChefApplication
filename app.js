@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
+var session = require('express-session');
 
 //controllers控制层
 //models数据层
@@ -29,6 +30,11 @@ var usersRouter = require('./app_server/routes/users');
 var pageRecetteRouter = require('./app_server/routes/pageRecette');
 var pageCommandeRouter = require('./app_server/routes/pageCommande');
 var pageMapRouter = require('./app_server/routes/map');
+var pagePayRouter = require('./app_server/routes/paiement');
+var pageReussiRouter = require('./app_server/routes/payReussi');
+var produitApiRouter = require('./app_server/routes/produitApi');
+//var pageCartRouter = require('./app_server/routes/pageCart');
+//var pageAddRouter = require('./app_server/routes/pageAdd');
 var app = express();
 
 // view engine setup
@@ -42,14 +48,22 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
+app.use(session({
+  secret:'secret',
+  resave:true,
+  saveUninitialized:true
+}))
+app.use('/produitApi',produitApiRouter);
 //这里配置路径，之后在对应的routes文件里不需要绝对路径
 app.use('/', pageAceuilRouter);
 app.use('/users', usersRouter);
 app.use('/pageRecette', pageRecetteRouter);
 app.use('/pageCommande', pageCommandeRouter);
+app.use('/paiement', pagePayRouter);
 app.use('/map', pageMapRouter);
-
+app.use('/payReussi', pageReussiRouter);
+//app.use('/pageCart', pageCartRouter);
+//app.use('/add', pageAddRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

@@ -6,12 +6,13 @@
 </div>
 <hr>
 <div class="row">
-  <form role="form" method="POST" action="map">
+  <form role="form" method="GET" action="paiement">
   <div class="form-group" id="locationField">
   <div class="col-sm">
       <input id="autocomplete"
       name="autoCompleteAdress"
       class="form-control"
+      required="required"
       placeholder="Rechercher votre adresse"
       onFocus="geolocate()"
       type="text"/>
@@ -48,8 +49,20 @@
       placeholder="Téléphone*"
       type="tel"/>
   </div>
+  <div class="col-xs-6" id="total">
+    <input id="totalPay" name="totalPay" type="hidden"/>
+  </div>
 </div>
 <input class="btn btn-primary btn-lg" type="submit" value="Suivant">
 </form>
 </div>
-<%- include footer %>
+
+</div>
+
+<script src="/javascripts/jquery.min.js"></script>
+<script src="/javascripts/bootstrap.min.js"></script>
+<script src="/javascripts/pageMap.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2m10W9_3IMkbSbgfRLGs6jP4ox7qcFYQ&libraries=places&callback=initAutocomplete"
+async defer></script>
+</body>
+</html>
