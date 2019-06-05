@@ -74,5 +74,5 @@ $(document).ready(function(){
   var tel = $('#tel').val;
   sessionStorage.setItem("adress",adress);
   sessionStorage.setItem("tel",tel);
-  $("#totalPay").val(sessionStorage.getItem('totalPay'));
+  $("#totalPay").val(localStorage.totalPrice);
 })

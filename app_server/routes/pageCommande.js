@@ -16,10 +16,10 @@ router.get('/', function(req, res, next) {
       }
 });
 Use json temperately, then I'll get this data from Ye's page
-*/
+
   var cart = new Cart(req.session.cart ? req.session.cart : {});
   var products = [{"title":"porc","price":"10euros/kg"},{"title":"porc","price":"10euros/kg"}];
-  
-  res.render('pageCommande', { title: 'Commande',products:products });
+  */
+  res.render('pageCommande');
 });
 module.exports = router;

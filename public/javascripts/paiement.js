@@ -1,8 +1,8 @@
 
     $(document).ready(function(){
-      var total = parseFloat(sessionStorage.getItem("totalPay"));
+      var total = parseFloat(localStorage.totalPrice);
       console.log(total);
-      $("#total").append('<br>'+sessionStorage.getItem("totalPay")+' euros.');
+      $("#total").append('<br>'+localStorage.totalPrice+' euros.');
       if(total){
         var stripe = Stripe('pk_test_0uNJ9oWLQxo7tH6a7uAhic9S00O4wEvplb');
         var elements = stripe.elements();

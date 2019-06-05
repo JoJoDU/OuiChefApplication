@@ -1,48 +1,76 @@
-$(document).ready(function() {
-    $(".add").click(function() {
-      var t = $(this).parent().find('input[class*=text_box]');
-      if(t.val()==""||undefined||null){
-        t.val(0);
-      }
-      t.val(parseInt(t.val()) + 1)
-      setTotal();
-    })
-    $(".min").click(function() {
-      var t = $(this).parent().find('input[class*=text_box]');
-      if(t.val()==""||undefined||null){
-        t.val(0);
-      }
-      t.val(parseInt(t.val()) - 1)
-      if(parseInt(t.val()) < 0) {
-        t.val(0);
-      }
-      setTotal();
-    })
-    $(".delete").click(function(){
-      var t = $(this).parent().parent('td').remove();
-      //console.log($(this).parent().parent('tr'));
-      setTotal();
-    })
-    $(".text_box").keyup(function(){
-      var t = $(this).parent().find('input[class*=text_box]');
-      if(parseInt(t.val())==""||undefined||null || isNaN(t.val())) {
-        t.val(0);
-      }
-      setTotal();
-    })
-    function setTotal() {
-      var s = 0;
-      $("#tab td").each(function() {
-        var t = $(this).find('input[class*=text_box]').val();
-        var p = $(this).find('span[class*=price]').text();
-        if(parseInt(t)==""||undefined||null || isNaN(t) || isNaN(parseInt(t))){
-          t=0;
+//import { SharedIniFileCredentials } from "aws-sdk";
+
+
+
+var produit = new Vue({
+  el: "#produit",
+  data: {
+    items:[] ,
+flag:0
+  },
+
+  created:function(){
+
+    
+if(localStorage.panier)
+{
+  this.items=JSON.parse(localStorage.panier)
+  this.flag=1
+}
+
+else
+this.flag=0
+  },
+  methods: {
+    minus(i) {
+      if (this.items[i].number > 0) {
+
+        this.items[i].number--
+        let panier = localStorage.panier
+        panier = JSON.parse(panier)
+        console.log(panier)
+        let name = this.items[i].name
+        console.log(name)
+        for (let item in panier) {
+          console.log(item)
+          if (panier[item].name == name) {
+            panier[item].number--
+          }
         }
-        console.log(p);
-        s += parseInt(t) * parseFloat(p);
-        sessionStorage.setItem("totalPay",s);
-      });
-      $("#total").html(s.toFixed(2));
+
+        localStorage.panier = JSON.stringify(panier)
+
+      }
+    },
+    add(i) {
+      if (this.items[i].number > 0) {
+        this.items[i].number++
+        let panier = localStorage.panier
+        panier = JSON.parse(panier)
+        console.log(panier)
+        let name = this.items[i].name
+        console.log(name)
+        for (let item in panier) {
+          console.log(item)
+          if (panier[item].name == name) {
+            panier[item].number++
+          }
+        }
+
+        localStorage.panier = JSON.stringify(panier)
+      }
     }
-    setTotal();
-  })
+  },
+  computed: {
+    total: function () {
+      let items = this.items
+      let temp = 0
+      for (let item in items) {
+        temp += items[item].price * items[item].number
+      }
+      temp = temp.toFixed(2)
+      localStorage.totalPrice=temp
+      return temp
+    }
+  }
+})

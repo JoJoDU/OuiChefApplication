@@ -5,26 +5,6 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 var session = require('express-session');
-
-//controllers控制层
-//models数据层
-//请求过程：
-/*
-1、用户发起请求，http://localhost:3000/pageCemande
-
-2、node server，发现这个app已经设置了pageCemande的路由
-
-3、然后node server，解析pageCemandeRouter，定位到./app_server/routes/pageCemande.js里面到详细。
-
-4、根据详细路由，然后指定控制器里面到具体操作，例如：pageCemandeRouter.get('/getList',pageCemandeController.getList);，
-
-5、进入控制器，执行getList操作。
-
-6、若getList操作涉及model层，则调用model层相关数据结构。我觉得应该这里操作数据库
-
-6、然后由控制器将数据返回给用户。
-*/
-//这里引入需要的页面路径，可根据需要新建
 var pageAceuilRouter = require('./app_server/routes/pageAceuil');
 var usersRouter = require('./app_server/routes/users');
 var pageRecetteRouter = require('./app_server/routes/pageRecette');
@@ -35,6 +15,9 @@ var pageReussiRouter = require('./app_server/routes/payReussi');
 var produitApiRouter = require('./app_server/routes/produitApi');
 //var pageCartRouter = require('./app_server/routes/pageCart');
 //var pageAddRouter = require('./app_server/routes/pageAdd');
+var recetteDetail=require('./app_server/routes/recetteDetail');
+var createRecette=require('./app_server/routes/createRecette');
+var recette=require('./app_server/routes/recette');
 var app = express();
 
 // view engine setup
@@ -64,6 +47,10 @@ app.use('/map', pageMapRouter);
 app.use('/payReussi', pageReussiRouter);
 //app.use('/pageCart', pageCartRouter);
 //app.use('/add', pageAddRouter);
+app.use('/recetteDetail', recetteDetail);
+app.use('/createRecette', createRecette);
+app.use('/recette',recette)
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

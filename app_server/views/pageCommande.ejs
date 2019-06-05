@@ -1,40 +1,40 @@
 <%- include header %>
 <br>
 <h1>Votre commande</h1>
-<% if(products){ %>
+<div id="produit">
+    <div v-if="flag">
   <form action="map" method="GET">
     <table class="table col-md-8" id="tab">
-    <%for(var item in products){
-        %>
-    <tr>
+
+    <tr v-for="(item,index) in items" bind-k>
     <td>
-                <h3><%= products[item].title %></h3>
+                <h3>{{item.name}}</h3>
                 <div>
-                <span class="price"><%= products[item].price %></span>
+                <strong>Prix : </strong>
+                <span class="price">{{item.price}}</span>
                 </div>
                 <div class="float-right">
-                <input class="min btn" name="" type="button" value="-" />
-                <input class="text_box" name="" type="number" value="1" placeholder="1"/>
-                <input class="add btn" name="" type="button" value="+" />
+                <button  type="button" v-on:click="minus(index)">-</button>
+                <span>{{item.number}}</span>
+                <button  type="button"  v-on:click="add(index)">+</button>
                 <a class="delete btn btn-primary float-right" role="button">Supprimer</a>
                 </div>
 </td>
 </tr>
-<%} %>
 </table>
-<h2>Total : <strong id="total"></strong></h2>
+<h2>Total : <strong >{{total}}</strong></h2>
 <div class="row center">
     <button class="valide btn btn-primary col-md-1 offset-md-3" id="valide" type="submit">Valider</button>
 </div>
 </form>
+</div>
 
-<% } 
- else{ %>
+<div v-else>
     <p>Votre panier est vide!</p>
     <a href="/pageAceuil" type="link">Retour à l'acceuil</a>
-<% } %>
+</div>
 
-
+ </div>
 </div>
 <script src="/javascripts/jquery.min.js"></script>
 <script src="/javascripts/bootstrap.min.js"></script>
