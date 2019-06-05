@@ -34,7 +34,6 @@ docClient.get(params, function (err, data) {
             ingredient[j] = new Object
             ingredient[j].name = ing
             ingredient[j].val = recette[ing]
-            ingredient[j].nom = 1
             ingredient[j].prix = Math.ceil(Math.random()*50)/10
             j++
         }
@@ -44,13 +43,26 @@ docClient.get(params, function (err, data) {
             data: {
                 items: ingredient
             },
-            // 在 `methods` 对象中定义方法
             methods: {
                 add: function (index) {
-                    localStorage.panier = [1,2]
+                   let ingredient= this.items[index]
+                    let name=ingredient.name
+                    let prix=ingredient.prix
+                    let panier=localStorage.panier
+                    console.log(panier)
+                    if(panier){
+                        console.log("exist")
+                        panier=JSON.parse(panier)
+                        panier[name]=prix
+                        panier = JSON.stringify(panier)
+                        localStorage.panier=panier
+                    }else{
+                        panier=new Object
+                        panier[name]=prix
+                        panier = JSON.stringify(panier)
+                        localStorage.panier=panier
+                    }
                     console.log(localStorage.panier)
-                   // localStorage.panier.push(this.items[index])
-                   // console.log(localStorage.panier)
                 }
             }
         })

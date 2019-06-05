@@ -9,7 +9,7 @@ var pageRecetteRouter = require('./app_server/routes/pageRecette');
 var pageCommandeRouter = require('./app_server/routes/pageCommande');
 var recetteDetail=require('./app_server/routes/recetteDetail');
 var createRecette=require('./app_server/routes/createRecette');
-var test=require('./app_server/routes/test');
+var recette=require('./app_server/routes/recette');
 var app = express();
 
 // view engine setup
@@ -29,7 +29,7 @@ app.use('/pageRecette', pageRecetteRouter);
 app.use('/pageCommande', pageCommandeRouter);
 app.use('/recetteDetail', recetteDetail);
 app.use('/createRecette', createRecette);
-app.use('test',test)
+app.use('/recette',recette)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
