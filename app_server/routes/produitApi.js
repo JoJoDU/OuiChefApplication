@@ -4,13 +4,23 @@ var fs = require('fs');
 var AWS = require('aws-sdk');
 AWS.config.loadFromPath('config.json');
 var Product = require('../models/product');
-var produitJson = {
-   "Get/Post  tous les produits et le prix":"/produitApi/produit",
-   "Get/Put/Delete produit avec son nom":"/produitApi/produit:produitTitle"
+/*var produitJson = {
+   "Obtenir tous les produits et le prix" : "Get/Post/produitApi/produit",
+   "Creer un produits et le prix" : "Post /produitApi/produit",
+   "Obtenir produit avec son nom" : "Get /produitApi/produit:produitTitle",
+   "Renouveller produit avec son nom" : "Put /produitApi/produit:produitTitle",
+   "GSupprimer produit avec son nom" : "Delete /produitApi/produit:produitTitle"
 };
-/* GET produit page. */
+ GET produit page. */
+ var produitApiJson= {
+"product list":{"uri":"/produitApi/produit","method":"GET"},
+"add product":{"uri":"/produitApi/produit","method":"POST"},
+"get product with title":{"uri":"/produitApi/produit:produitTitle","method":"GET"},
+"update product with title":{"uri":"/produitApi/produit:produitTitle","method":"PUT"},
+"delete product with title":{"uri":"/produitApi/produit:produitTitle","method":"DELETE"},
+}
 router.get('/', function(req, res, next) {
-   res.send(produitJson);
+   res.send(produitApiJson);
 });
 
 router.route('/produit')
