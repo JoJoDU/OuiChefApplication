@@ -2,7 +2,6 @@
 var session = require('express-session');
 var express = require('express');
 var router = express.Router();
-<<<<<<< HEAD
 var decode = require('./decode.js');
 var exec = require('child_process').exec
 var host = 'https://ouichef.auth.us-east-2.amazoncognito.com/oauth2/token';
@@ -24,7 +23,7 @@ var identityKey = 'skey';
 router.use(session({
     name: identityKey,
     secret: 'ouichef',  // 用来对session id相关的cookie进行签名
-    store: new FileStore({path : './sessions/'}),  // 本地存储session（文本文件，也可以选择其他store，比如redis的）
+    store: new Filetore({path : './sessions/'}),  // 本地存储session（文本文件，也可以选择其他store，比如redis的）
     saveUninitialized: true,  // 是否自动保存未初始化的会话，建议false
     resave: false,  // 是否每次都重新保存会话，建议false
     cookie: {
@@ -80,11 +79,6 @@ router.get('/', function (req, res, next) {
       }
     })
   }
-=======
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('pageAceuil', { title: 'Ouichef' });
->>>>>>> 62f48fefcbbda26dcfebfc3eb67425c497316bc9
 });
 
 function decode1(event, context, callback){
