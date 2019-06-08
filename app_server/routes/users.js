@@ -16,10 +16,11 @@ var userData = {
 */
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('users', { title: 'Recette dans Oui Chef' });
+  //res.render('users', { title: 'Recette dans Oui Chef' });
+  res.redirect('https://ouichef.auth.us-east-2.amazoncognito.com/login?response_type=code&client_id=16g26706ovmhfj4d3o08qnnso&redirect_uri=http://localhost:3000/');
 });
 router.post('/', function(req, res, next) {
-  res.redirect('https://ouichef.auth.us-east-2.amazoncognito.com/login?response_type=code&client_id=16g26706ovmhfj4d3o08qnnso&redirect_uri=http://localhost:3000/');
+  //res.redirect('https://ouichef.auth.us-east-2.amazoncognito.com/login?response_type=code&client_id=16g26706ovmhfj4d3o08qnnso&redirect_uri=http://localhost:3000/');
 });
 //inscription
 /*

@@ -7,7 +7,7 @@ var exec = require('child_process').exec
 var host = 'https://ouichef.auth.us-east-2.amazoncognito.com/oauth2/token';
 var uri = 'http%3A%2F%2Flocalhost%3A3000%2F';
 var client_id = '16g26706ovmhfj4d3o08qnnso';
-
+var FileStore = require('session-file-store')(session);
 
 var https = require('https');
 var jose = require('node-jose');
@@ -22,12 +22,12 @@ var identityKey = 'skey';
 
 router.use(session({
     name: identityKey,
-    secret: 'chyingp',  // 用来对session id相关的cookie进行签名
-    //store: new FileStore(),  // 本地存储session（文本文件，也可以选择其他store，比如redis的）
-    saveUninitialized: false,  // 是否自动保存未初始化的会话，建议false
+    secret: 'ouichef',  // 用来对session id相关的cookie进行签名
+    store: new FileStore({path : './sessions/'}),  // 本地存储session（文本文件，也可以选择其他store，比如redis的）
+    saveUninitialized: true,  // 是否自动保存未初始化的会话，建议false
     resave: false,  // 是否每次都重新保存会话，建议false
     cookie: {
-        maxAge: 10 * 1000  // 有效期，单位是毫秒
+        maxAge: 1000 * 1000  // 有效期，单位是毫秒
     }
 }));
 
@@ -62,10 +62,12 @@ router.get('/', function (req, res, next) {
           console.log('tokenDecode: '+tokenDecode);
           req.session.regenerate(function(err) {
             if(err){
+                console.log('log err!');
                 return res.json({ret_code: 2, ret_msg: '登录失败'});                
             }
             
-            req.session.loginUser = tokenDecode;
+            req.session.username = tokenDecode;
+            console.log("session.aceuil: "+req.session.username);
             //res.json({ret_code: 0, ret_msg: '登录成功'});                           
         });
         },1000);
