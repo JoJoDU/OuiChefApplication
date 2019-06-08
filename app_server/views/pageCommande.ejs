@@ -1,3 +1,43 @@
 <%- include header %>
+<br>
 <h1>Votre commande</h1>
-<%- include footer %>
+<div id="produit">
+    <div v-if="flag">
+  <form action="map" method="GET">
+    <table class="table col-md-8" id="tab">
+
+    <tr v-for="(item,index) in items" bind-k>
+    <td>
+                <h3>{{item.name}}</h3>
+                <div>
+                <strong>Prix : </strong>
+                <span class="price">{{item.price}}</span>
+                </div>
+                <div class="float-right">
+                <button  type="button" v-on:click="minus(index)">-</button>
+                <span>{{item.number}}</span>
+                <button  type="button"  v-on:click="add(index)">+</button>
+                <a class="delete btn btn-primary float-right" role="button">Supprimer</a>
+                </div>
+</td>
+</tr>
+</table>
+<h2>Total : <strong >{{total}}</strong></h2>
+<div class="row center">
+    <button class="valide btn btn-primary col-md-1 offset-md-3" id="valide" type="submit">Valider</button>
+</div>
+</form>
+</div>
+
+<div v-else>
+    <p>Votre panier est vide!</p>
+    <a href="/pageAceuil" type="link">Retour à l'acceuil</a>
+</div>
+
+ </div>
+</div>
+<script src="/javascripts/jquery.min.js"></script>
+<script src="/javascripts/bootstrap.min.js"></script>
+<script src="/javascripts/commande.js"></script>
+</body>
+</html>

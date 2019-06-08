@@ -1,0 +1,99 @@
+<%- include header %>
+<div class="my-3 p-3 bg-white rounded shadow-sm">
+    <h6 class="border-bottom border-gray pb-2 mb-0">Ingrédients</h6>
+
+    <div id="list">
+        <li v-for="(item, index) in items">
+            <div class="media text-muted pt-3">
+                <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                    <div class="d-flex justify-content-between  ">
+                        <p class="font-weight-bold">{{item.name}}</p>
+                        <span class="font-weight-bold" style="margin:0 auto">Chaque prix: {{item.prix}} €</span>
+                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#ajouter"
+                                v-on:click="add(index)">Ajouter
+                        </button>
+                    </div>
+                    <span class="d-block">{{item.val}}</span>
+                </div>
+
+            </div>
+        </li>
+    
+    <div class="modal fade" id="ajouter" tabindex="-1" role="dialog"
+         aria-labelledby="ModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ModalLabel">Success</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Vous avez ajouté cet ingrédient à votre panier.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-block text-right mt-3">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ajouterTous" v-on:click="addAll()">Ajouter Tous
+        </button>
+    </div>
+</div>
+    <div class="modal fade" id="ajouterTous" tabindex="-1" role="dialog" aria-labelledby="ModalLabel2"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ModalLabel2">Success</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Vous avez ajouté tous les ingrédients à votre panier.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="my-3 p-3 bg-white rounded shadow-sm">
+    <h6 class="border-bottom border-gray pb-2 mb-0">Préparation</h6>
+
+    <div id="list2">
+        <li v-for="(item, index) in items">
+            <div class="media text-muted pt-3">
+                <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                    <div class="d-flex justify-content-between align-items-center w-100">
+                        <p class="font-weight-bold" style="font-size: 1.5em">{{index}}</p>
+
+                    </div>
+                    <span class="d-block">{{item}}</span>
+                </div>
+            </div>
+        </li>
+    </div>
+</div>
+
+<div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button"
+     data-size="large"><a target="_blank"
+                          href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse"
+                          class="fb-xfbml-parse-ignore">分享</a></div>
+<div style="text-align: center;">
+    <h5>Scannez le code QR pour plus d'informations</h5>
+    <img src=" http://chart.apis.google.com/chart?cht=qr&chs=104x104&chld=L|0&chl=https://www.wecook.fr/recettes/">
+</div>
+
+<script src="/javascripts/recetteDetail.js"></script>
+<script src="/javascripts/jquery.min.js"></script>
+<script src="/javascripts/bootstrap.min.js"></script>
+</body>
+</html>
