@@ -27,15 +27,12 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(session({
-  secret:'secret',
-  resave:true,
-  saveUninitialized:true
-}))
+
+
 app.use('/produitApi',produitApiRouter);
 //这里配置路径，之后在对应的routes文件里不需要绝对路径
 app.use('/', pageAceuilRouter);

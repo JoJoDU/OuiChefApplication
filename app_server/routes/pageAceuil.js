@@ -8,7 +8,7 @@ var host = 'https://ouichef.auth.us-east-2.amazoncognito.com/oauth2/token';
 var uri = 'http%3A%2F%2Flocalhost%3A3000%2F';
 var client_id = '16g26706ovmhfj4d3o08qnnso';
 var FileStore = require('session-file-store')(session);
-
+var cookieParser = require('cookie-parser');
 var https = require('https');
 var jose = require('node-jose');
 
@@ -19,26 +19,37 @@ var keys_url = 'https://cognito-idp.' + region + '.amazonaws.com/' + userpool_id
 var tokenDecode = '';
 
 var identityKey = 'skey';
-
+router.use(cookieParser());
 router.use(session({
-    name: identityKey,
-    secret: 'ouichef',  // 用来对session id相关的cookie进行签名
-    store: new Filetore({path : './sessions/'}),  // 本地存储session（文本文件，也可以选择其他store，比如redis的）
-    saveUninitialized: true,  // 是否自动保存未初始化的会话，建议false
-    resave: false,  // 是否每次都重新保存会话，建议false
-    cookie: {
-        maxAge: 1000 * 1000  // 有效期，单位是毫秒
-    }
+  secret :  'secret', // 对session id 相关的cookie 进行签名
+  resave : false,
+  saveUninitialized: false, // 是否保存未初始化的会话
+  cookie : {
+      maxAge : 1000 * 60 * 3, // 设置 session 的有效时间，单位毫秒
+  },
+  
+}))
+/*
+router.use(session({
+  secret :  'secret', // 对session id 相关的cookie 进行签名
+  resave : true,
+  saveUninitialized: false, // 是否保存未初始化的会话
+  cookie : {
+      maxAge : 1000 * 60 * 3, // 设置 session 的有效时间，单位毫秒
+  }
 }));
-
+*/
 /* GET home page. */
 router.get('/', function (req, res, next) {
+ // console.log('session='+req.session.username)
+ // req.session.username = 'zijieAN';
   var token = "";
-  res.render('pageAceuil', { title: 'Oui Chef' });
+  
   var uuid = req.query.code;
   console.log('code = ' + uuid);
   if (uuid==undefined){
     console.log('pas encore login')
+    res.render('pageAceuil', { title: 'Oui Chef' });
   }
   else{
   var cmd = "curl -X POST " + host + " -H 'Content-Type: application/x-www-form-urlencoded'  -d 'grant_type=authorization_code&redirect_uri=" + uri + "&code=" + uuid + "&client_id=" + client_id + "'"
@@ -46,36 +57,30 @@ router.get('/', function (req, res, next) {
     
       if (err) {
         console.log(stderr);
-        //return stderr;
       }
       else {
         console.log('return data: ' + JSON.parse(stdout));
         token = JSON.parse(stdout).id_token;
         console.log('token: '+token);
-        /*decode1(token).then(()=>{
-          //var tokenDecode = decode(token);
-          console.log(tokenDecode);
-        });
-        */
         decode1(token);
-        setTimeout(()=>{
+      //  setTimeout(()=>{
           console.log('tokenDecode: '+tokenDecode);
-          req.session.regenerate(function(err) {
+          
+          req.session.save(function(err) {
             if(err){
                 console.log('log err!');
-                return res.json({ret_code: 2, ret_msg: '登录失败'});                
+                //return res.json({ret_code: 2, ret_msg: '登录失败'});                
             }
             
             req.session.username = tokenDecode;
+            //res.send(req.session.username);
+            
             console.log("session.aceuil: "+req.session.username);
+            console.log("sess id acueil: "+JSON.stringify(req.session));
+            res.render('pageAceuil', { title: 'Oui Chef' });
             //res.json({ret_code: 0, ret_msg: '登录成功'});                           
         });
-        },1000);
-        
-        
-        //console.log('decode: '+ decode(tokenDecode));
-        //console.log('noew token: '+jose.util.base64url.decode(token));
-        //console.log(JSON.parse(jose.util.base64url.decode(token)))
+      // },1000)
       }
     })
   }
