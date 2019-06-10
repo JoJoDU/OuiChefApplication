@@ -9,21 +9,26 @@ router.get('/', function(req, res, next) {
   console.log(req.query.autoCompleteAdress);
   console.log(req.query.tel);
   console.log(req.query.totalPay);
-  var totalPay = req.query.totalPay;
-(async () => {
-  const paymentIntent = await stripe.paymentIntents.create({
-    amount: totalPay*100,
-    currency: 'eur',
-  });
-console.log(paymentIntent);
-res.render('paiement', 
-  { title: 'Payer',
-  adresse:req.query.autoCompleteAdress,
-  paymentIntent:paymentIntent,
-  totalPay:totalPay
-  });
-})();
-  
+  console.log(req.session.username);
+  if(req.session.username!==undefined){
+    var totalPay = req.query.totalPay;
+    (async () => {
+      const paymentIntent = await stripe.paymentIntents.create({
+        amount: totalPay*100,
+        currency: 'eur',
+      });
+    console.log(paymentIntent);
+    res.render('paiement', 
+      { title: 'Payer',
+      adresse:req.query.autoCompleteAdress,
+      paymentIntent:paymentIntent,
+      totalPay:totalPay
+      });
+    })();
+  }else{
+    res.redirect('users');
+  }
+ 
 });
 router.post('/', function(req, res, next) {
   console.log("pay");
