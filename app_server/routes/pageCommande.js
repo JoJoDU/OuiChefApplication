@@ -3,6 +3,7 @@ var router = express.Router();
 var session = require('express-session');
 /* GET home page. */
 router.get('/', function(req, res, next) {
+  if(req.session.username!==undefined){
   res.render('pageCommande', { title: 'Commande' });
   console.log("session: "+JSON.stringify(req.session));
   console.log("sess id command: "+req.session.id)
@@ -10,6 +11,10 @@ var AWS = require('aws-sdk');
 AWS.config.loadFromPath('config.json');
 var Product = require('../models/product');
 var Cart = require('../models/cart');
+  }
+  else{
+    res.redirect('users');
+  }
 
 /* GET home page. */
 
