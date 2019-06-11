@@ -53,6 +53,7 @@ router.get('/', function (req, res, next) {
   }
   else{
   var cmd = "curl -X POST " + host + " -H 'Content-Type: application/x-www-form-urlencoded'  -d 'grant_type=authorization_code&redirect_uri=" + uri + "&code=" + uuid + "&client_id=" + client_id + "'"
+  console.log('cmd: '+cmd)
   exec(cmd, function (err, stdout, stderr) {
     
       if (err) {
