@@ -4,7 +4,7 @@ var router = express.Router();
 var xml2js = require('xml2js');
 
 var builder = new xml2js.Builder();  // JSON->xml
-var parser = new xml2js.Parser();   //xml -> json
+
 var AWS = require("aws-sdk");
 AWS.config.update({
     region: "eu-west-3",
@@ -34,17 +34,16 @@ const json={
         "method":"GET"
     },
     "ingredient":{
-        "uri":"/recette/ingredient?id={id}",
+        "uri":"/recette/ingredient/id",
         "method":"GET"
     },
     "preparation":{
-        "uri":"/recette/preparation?id={id}",
+        "uri":"/recette/preparation/id",
         "method":"GET"
     },
 }
-
-
-    if(req.query.m==="xml"){
+    let flag=req.accepts("xml")
+    if(flag){
         const xml = builder.buildObject(json);
         res.send(xml)
     }else{
@@ -62,7 +61,8 @@ router.get('/list', function (req, res) {
             for(let i=0;i<result.length;i++){
                 recetteInfo[i]={id:result[i].id,title:result[i].title,text:result[i].text}
             }
-            if(req.query.m==="xml"){
+            let flag=req.accepts("xml")
+            if(flag){
                 const xml = builder.buildObject(recetteInfo);
                 res.send(xml)
             }else{
@@ -73,8 +73,8 @@ router.get('/list', function (req, res) {
 
 
 })
-router.get('/ingredient', function (req, res) {
-    let id=req.query.id
+router.get('/ingredient/:id', function (req, res) {
+    let id=req.params.id
     if(!id){
         res.send("Vous n'avez pas spécifié d'identifiant")
     }else{
@@ -99,8 +99,8 @@ router.get('/ingredient', function (req, res) {
                     console.log(ing)
                     ingredient[ing]= recette[ing]
                 }
-                console.log(ingredient)
-                if(req.query.m==="xml"){
+                let flag=req.accepts("xml")
+                if(flag){
                     const xml = builder.buildObject(ingredient);
                     res.send(xml)
                 }else{
@@ -114,8 +114,8 @@ router.get('/ingredient', function (req, res) {
 
 })
 
-router.get('/preparation', function (req, res) {
-    let id=req.query.id
+router.get('/preparation/:id', function (req, res) {
+    let id=req.params.id
     if(!id){
         res.send("Vous n'avez pas spécifié d'identifiant")
     }else{
@@ -134,7 +134,8 @@ router.get('/preparation', function (req, res) {
                 console.log(JSON.stringify(data, undefined, 2))
                  pre = data.Item;
                 delete pre.id
-                if(req.query.m==="xml"){
+                let flag=req.accepts("xml")
+                if(flag){
                     const xml = builder.buildObject(pre);
                     res.send(xml)
                 }else{
