@@ -34,11 +34,11 @@ const json={
         "method":"GET"
     },
     "ingredient":{
-        "uri":"/recette/ingredient/id",
+        "uri":"/recette/ingredient/:id",
         "method":"GET"
     },
     "preparation":{
-        "uri":"/recette/preparation/id",
+        "uri":"/recette/preparation/:id",
         "method":"GET"
     },
 }
