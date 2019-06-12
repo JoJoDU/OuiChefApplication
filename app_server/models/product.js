@@ -9,7 +9,6 @@ dynamoose.setDDB(db);
 
 var productSchema = new dynamoose.Schema({
     title:String,
-    price:String,
-    quantity:String
+    information:String
 });
 module.exports = dynamoose.model("Product",productSchema);

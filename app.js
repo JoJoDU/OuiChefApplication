@@ -33,7 +33,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 
-app.use('/produitApi',produitApiRouter);
+app.use('/produit',produitApiRouter);
 //这里配置路径，之后在对应的routes文件里不需要绝对路径
 app.use('/', pageAceuilRouter);
 app.use('/users', usersRouter);
