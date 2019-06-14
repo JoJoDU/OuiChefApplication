@@ -42,8 +42,8 @@ const json={
         "method":"GET"
     },
 }
-    let flag=req.accepts("xml")
-    if(flag){
+    let type=req.get('Content-Type');
+    if(type=="application/xml"){
         const xml = builder.buildObject(json);
         res.send(xml)
     }else{
@@ -61,8 +61,8 @@ router.get('/list', function (req, res) {
             for(let i=0;i<result.length;i++){
                 recetteInfo[i]={id:result[i].id,title:result[i].title,text:result[i].text}
             }
-            let flag=req.accepts("xml")
-            if(flag){
+            let type=req.get('Content-Type');
+            if(type=="application/xml"){
                 const xml = builder.buildObject(recetteInfo);
                 res.send(xml)
             }else{
@@ -99,8 +99,8 @@ router.get('/ingredient/:id', function (req, res) {
                     console.log(ing)
                     ingredient[ing]= recette[ing]
                 }
-                let flag=req.accepts("xml")
-                if(flag){
+                let type=req.get('Content-Type');
+                if(type=="application/xml"){
                     const xml = builder.buildObject(ingredient);
                     res.send(xml)
                 }else{
@@ -134,8 +134,8 @@ router.get('/preparation/:id', function (req, res) {
                 console.log(JSON.stringify(data, undefined, 2))
                  pre = data.Item;
                 delete pre.id
-                let flag=req.accepts("xml")
-                if(flag){
+                let type=req.get('Content-Type');
+                if(type=="application/xml"){
                     const xml = builder.buildObject(pre);
                     res.send(xml)
                 }else{
