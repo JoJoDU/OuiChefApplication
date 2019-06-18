@@ -17,7 +17,7 @@
                 <button  type="button" v-on:click="minus(index)">-</button>
                 <span>{{item.number}}</span>
                 <button  type="button"  v-on:click="add(index)">+</button>
-                <a class="delete btn btn-primary float-right" role="button">Supprimer</a>
+                <a class="delete btn btn-primary float-right" role="button" v-on:click="delete(index)">Supprimer</a>
                 </div>
 </td>
 </tr>
@@ -31,7 +31,7 @@
 
 <div v-else>
     <p>Votre panier est vide!</p>
-    <a href="/pageAceuil" type="link">Retour à l'acceuil</a>
+    <a href="/" type="link">Retour à l'acceuil</a>
 </div>
 
  </div>

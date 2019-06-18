@@ -3,7 +3,7 @@
     <hr>
     <div class="row">
       
-        <div class="col-md-6">
+        <div class="col-md-8">
           <h2 class=" text-center">Total à payer</h2>
           <div class=" text-center"><strong><%= paymentIntent.amount/100 %> euros</strong></div>
           <hr>
@@ -22,12 +22,12 @@
           <br>
           <br>
           <button id="card-button" class="btn btn-primary" type="submit" data-secret=<%= paymentIntent.client_secret %>>
-            Submit Payment
+            Payer
           </button>
         </form>
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="p-3 mb-2 bg-light text-dar">
             <div class="col-xs-6 text-center">
               <strong>RECAPITULATIF DE COMMANDE</strong>

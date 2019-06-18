@@ -59,6 +59,11 @@ this.flag=0
 
         localStorage.panier = JSON.stringify(panier)
       }
+    },
+    delete(i){
+      let panier = localStorage.panier
+        panier = JSON.parse(panier)
+        console.log(panier)
     }
   },
   computed: {
